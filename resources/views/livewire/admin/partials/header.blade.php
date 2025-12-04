@@ -1,73 +1,113 @@
-<header id="header" class="header fixed-top d-flex align-items-center">
-  <div class="d-flex align-items-center justify-content-between">
-    <a href="{{ route('dashboard') }}" class="logo d-flex align-items-center">
-      <img src="{{ asset('NiceAdmin/assets/img/Logo1.png') }}" alt="">
-      <span class="d-none d-lg-block">Readverse</span>
-    </a>
-    <i class="bi bi-list toggle-sidebar-btn"></i>
-  </div><!-- End Logo -->
+<header id="header" class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm transition-all duration-300 h-16 flex items-center px-4 sm:px-6 lg:px-8">
+  <div class="flex items-center justify-between w-full">
+    
+    <!-- Logo & Sidebar Toggle -->
+    <div class="flex items-center gap-4 lg:w-64">
+      <a href="{{ route('dashboard') }}" class="flex items-center gap-2 group">
+        <img src="{{ asset('NiceAdmin/assets/img/Logo1.png') }}" alt="Readverse" class="h-8 w-auto transition-transform duration-300 group-hover:scale-110">
+        <span class="hidden lg:block font-bold text-xl text-slate-800 tracking-tight">Readverse</span>
+      </a>
+      <button type="button" @click="sidebarOpen = !sidebarOpen" class="text-slate-500 hover:text-indigo-600 transition-colors p-1 rounded-md hover:bg-slate-100 toggle-sidebar-btn lg:hidden">
+        <i class="bi bi-list text-2xl"></i>
+      </button>
+    </div>
 
- <div class="search-bar">
-  @livewire('admin.search')
-</div><!-- End Search Bar -->
+    <!-- Search Bar -->
+    <div class="hidden md:block flex-1 max-w-md mx-4">
+      <div class="relative">
+        @livewire('admin.search')
+      </div>
+    </div>
 
-  <nav class="header-nav ms-auto">
-    <ul class="d-flex align-items-center">
+    <!-- Right Navigation -->
+    <nav class="flex items-center gap-4 ml-auto">
+      
+      <!-- Mobile Search Toggle -->
+      <div class="md:hidden">
+        <button class="text-slate-500 hover:text-indigo-600 p-2 rounded-full hover:bg-slate-100 transition-colors search-bar-toggle">
+          <i class="bi bi-search text-lg"></i>
+        </button>
+      </div>
 
-      <li class="nav-item d-block d-lg-none">
-        <a class="nav-link nav-icon search-bar-toggle" href="#">
-          <i class="bi bi-search"></i>
-        </a>
-      </li><!-- End Search Icon-->
+      <!-- Notifications -->
+      <div class="relative" x-data="{ open: false }">
+        <button @click="open = !open" @click.away="open = false" class="relative text-slate-500 hover:text-indigo-600 p-2 rounded-full hover:bg-slate-100 transition-colors">
+          <i class="bi bi-bell text-xl"></i>
+          <span class="absolute top-1 right-1 flex h-2.5 w-2.5">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-indigo-500"></span>
+          </span>
+        </button>
 
-      <!-- Notification -->
-      <li class="nav-item dropdown">
-        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-          <i class="bi bi-bell"></i>
-          <span class="badge bg-primary badge-number">0</span>
-        </a>
-        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
-          <li class="dropdown-header">
-            Tidak ada notifikasi baru
-          </li>
-          <li><hr class="dropdown-divider"></li>
-          <li class="dropdown-footer">
-            <a href="#">Lihat semua notifikasi</a>
-          </li>
-        </ul>
-      </li><!-- End Notification Nav -->
+        <!-- Dropdown -->
+        <div x-show="open" 
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 scale-95"
+             x-transition:enter-end="opacity-100 scale-100"
+             x-transition:leave="transition ease-in duration-75"
+             x-transition:leave-start="opacity-100 scale-100"
+             x-transition:leave-end="opacity-0 scale-95"
+             class="absolute right-0 mt-2 w-80 bg-white rounded-xl shadow-lg border border-slate-100 py-2 z-50" 
+             style="display: none;">
+          
+          <div class="px-4 py-2 border-b border-slate-50 flex justify-between items-center">
+            <h6 class="font-semibold text-slate-800">Notifikasi</h6>
+            <a href="{{ route('admin.notifications') }}" class="text-xs text-indigo-600 hover:text-indigo-800 font-medium">Lihat Semua</a>
+          </div>
+          
+          <div class="max-h-64 overflow-y-auto">
+            <div class="px-4 py-8 text-center text-slate-500 text-sm">
+              <i class="bi bi-bell-slash text-2xl mb-2 block opacity-50"></i>
+              Tidak ada notifikasi baru
+            </div>
+          </div>
+        </div>
+      </div>
 
       <!-- Profile -->
-      <li class="nav-item dropdown pe-3">
-        <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-           <img src="{{ asset('storage/'.auth()->user()->profile_photo) }}" alt="Profile" class="rounded-circle">
-          <span class="d-none d-md-block ps-2">{{ auth()->user()->name }}</span>
-        </a>
-        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-          <li class="dropdown-header">
-            <h6>{{ auth()->user()->name }}</h6>
-            <span class="text-muted text-capitalize">{{ auth()->user()->role }}</span>
-          </li>
-          <li><hr class="dropdown-divider"></li>
-          <li>
-            <a class="dropdown-item d-flex align-items-center" href="{{ route('admin.profile') }}">
-              <i class="bi bi-person"></i>
-              <span>Profil Saya</span>
-            </a>
-          </li>
-          <li><hr class="dropdown-divider"></li>
-          <li>
-            <form action="{{ route('logout') }}" method="POST" class="d-block">
-              @csrf
-              <button type="submit" class="dropdown-item d-flex align-items-center text-danger">
-                <i class="bi bi-box-arrow-right"></i>
-                <span>Logout</span>
-              </button>
-            </form>
-          </li>
-        </ul>
-      </li><!-- End Profile Nav -->
+      <div class="relative pl-2 border-l border-slate-200" x-data="{ open: false }">
+        <button @click="open = !open" @click.away="open = false" class="flex items-center gap-3 focus:outline-none group">
+          <img src="{{ asset('storage/'.auth()->user()->profile_photo) }}" alt="Profile" class="h-9 w-9 rounded-full object-cover border-2 border-white shadow-sm group-hover:border-indigo-100 transition-all">
+          <div class="hidden md:block text-left">
+            <span class="block text-sm font-semibold text-slate-700 group-hover:text-indigo-600 transition-colors">{{ auth()->user()->name }}</span>
+            <span class="block text-xs text-slate-500 capitalize">{{ auth()->user()->role }}</span>
+          </div>
+          <i class="bi bi-chevron-down text-xs text-slate-400 group-hover:text-indigo-500 transition-colors hidden md:block"></i>
+        </button>
 
-    </ul>
-  </nav><!-- End Icons Navigation -->
+        <!-- Dropdown -->
+        <div x-show="open" 
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 scale-95"
+             x-transition:enter-end="opacity-100 scale-100"
+             x-transition:leave="transition ease-in duration-75"
+             x-transition:leave-start="opacity-100 scale-100"
+             x-transition:leave-end="opacity-0 scale-95"
+             class="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-slate-100 py-1 z-50" 
+             style="display: none;">
+          
+          <div class="px-4 py-3 border-b border-slate-50 md:hidden">
+            <p class="text-sm font-semibold text-slate-800">{{ auth()->user()->name }}</p>
+            <p class="text-xs text-slate-500 capitalize">{{ auth()->user()->role }}</p>
+          </div>
+
+          <a href="{{ route('admin.profile') }}" class="flex items-center gap-2 px-4 py-2.5 text-sm text-slate-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">
+            <i class="bi bi-person text-lg"></i>
+            <span>Profil Saya</span>
+          </a>
+          
+          <div class="border-t border-slate-50 my-1"></div>
+          
+          <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button type="submit" class="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors">
+              <i class="bi bi-box-arrow-right text-lg"></i>
+              <span>Logout</span>
+            </button>
+          </form>
+        </div>
+      </div>
+
+    </nav>
+  </div>
 </header>

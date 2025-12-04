@@ -1,83 +1,65 @@
-@extends('layouts.guest')
+@extends('layouts.guest-modern')
 
 @section('content')
-<main>
-  <div class="container">
-    <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+    <div class="mb-6 text-center">
+        <h2 class="text-2xl font-bold text-slate-900">Selamat Datang Kembali</h2>
+        <p class="text-slate-500 mt-2">Masuk untuk melanjutkan petualanganmu</p>
+    </div>
 
-            <div class="d-flex justify-content-center py-4">
-              <a href="{{ route('welcome') }}" class="logo d-flex align-items-center w-auto">
-                <img src="{{ asset('NiceAdmin/assets/img/Logo1.png') }}" alt="">
-                <span class="d-none d-lg-block">Readverse</span>
-              </a>
-            </div><!-- End Logo -->
-
-            <div class="card mb-3">
-              <div class="card-body">
-                <div class="pt-4 pb-2">
-                  <h5 class="card-title text-center pb-0 fs-4">Login ke Akun Anda</h5>
-                  <p class="text-center small">Masukkan email dan password untuk masuk</p>
-                </div>
-
-                @if (session('status'))
-                  <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{ session('status') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                  </div>
-                @endif
-
-                <form class="row g-3 needs-validation" method="POST" action="{{ route('login') }}" novalidate>
-                  @csrf
-
-                  <div class="col-12">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email" value="{{ old('email') }}" required>
-                    @error('email')
-                      <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                  </div>
-
-                  <div class="col-12">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="password" required>
-                    @error('password')
-                      <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                  </div>
-
-                  <div class="col-12">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                      <label class="form-check-label" for="remember">Ingat saya</label>
-                    </div>
-                  </div>
-
-                  <div class="col-12">
-                    <button class="btn btn-primary w-100" type="submit">Login</button>
-                  </div>
-
-                  <div class="col-12">
-                    <p class="small mb-0">
-                      <a href="{{ route('password.request') }}">Lupa password?</a>
-                    </p>
-                  </div>
-
-                  @if (Route::has('register'))
-                    <div class="col-12">
-                      <p class="small mb-0">Belum punya akun? <a href="{{ route('register') }}">Daftar</a></p>
-                    </div>
-                  @endif
-                </form>
-
-              </div>
-            </div>
-          </div>
+    @if (session('status'))
+        <div class="mb-4 font-medium text-sm text-green-600 bg-green-50 p-3 rounded-lg border border-green-100">
+            {{ session('status') }}
         </div>
-      </div>
-    </section>
-  </div>
-</main>
+    @endif
+
+    <form method="POST" action="{{ route('login') }}">
+        @csrf
+
+        <!-- Email Address -->
+        <div>
+            <label for="email" class="block font-medium text-sm text-slate-700">Email</label>
+            <input id="email" class="block mt-1 w-full rounded-xl border-slate-200 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-slate-50/50" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username" />
+            @error('email')
+                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+            @enderror
+        </div>
+
+        <!-- Password -->
+        <div class="mt-4">
+            <label for="password" class="block font-medium text-sm text-slate-700">Password</label>
+            <input id="password" class="block mt-1 w-full rounded-xl border-slate-200 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-slate-50/50" type="password" name="password" required autocomplete="current-password" />
+            @error('password')
+                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+            @enderror
+        </div>
+
+        <!-- Remember Me -->
+        <div class="block mt-4 flex justify-between items-center">
+            <label for="remember_me" class="inline-flex items-center">
+                <input id="remember_me" type="checkbox" class="rounded border-slate-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
+                <span class="ml-2 text-sm text-slate-600">Ingat saya</span>
+            </label>
+
+            @if (Route::has('password.request'))
+                <a class="text-sm text-indigo-600 hover:text-indigo-800 font-medium" href="{{ route('password.request') }}">
+                    Lupa password?
+                </a>
+            @endif
+        </div>
+
+        <div class="mt-8">
+            <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-sm text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-200 transform hover:-translate-y-0.5 shadow-indigo-500/30 hover:shadow-indigo-500/50">
+                Masuk Sekarang
+            </button>
+        </div>
+
+        <div class="mt-6 text-center">
+            <p class="text-sm text-slate-600">
+                Belum punya akun? 
+                <a href="{{ route('register') }}" class="font-bold text-indigo-600 hover:text-indigo-500 transition-colors">
+                    Daftar Gratis
+                </a>
+            </p>
+        </div>
+    </form>
 @endsection

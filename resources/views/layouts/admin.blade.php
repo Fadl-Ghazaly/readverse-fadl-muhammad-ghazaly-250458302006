@@ -17,39 +17,33 @@
     <link href="{{ asset('NiceAdmin/assets/vendor/simple-datatables/style.css') }}" rel="stylesheet">
 
     <!-- Main CSS -->
-    <link href="{{ asset('NiceAdmin/assets/css/style.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('NiceAdmin/assets/css/style.css') }}" rel="stylesheet"> --}}
 
-  
+    <!-- Tailwind & Alpine -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     @livewireStyles
 </head>
 
-<body>
+<body class="bg-slate-50 font-sans text-slate-900" x-data="{ sidebarOpen: false }">
 
     <div id="layout-wrapper">
 
         @include('livewire.admin.partials.header')
         @include('livewire.admin.partials.sidebar')
 
-        <main id="main" class="main">
+        <main class="pt-16 lg:pl-64 min-h-screen transition-all duration-300">
             {{ $slot }}
         </main>
 
-        @include('livewire.admin.partials.footer')
+        <div class="lg:pl-64">
+            @include('livewire.admin.partials.footer')
+        </div>
 
     </div>
 
-    <!-- Vendor JS -->
-    <script src="{{ asset('NiceAdmin/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('NiceAdmin/assets/vendor/apexcharts/apexcharts.min.js') }}"></script>
-    <script src="{{ asset('NiceAdmin/assets/vendor/echarts/echarts.min.js') }}"></script>
-    <script src="{{ asset('NiceAdmin/assets/vendor/quill/quill.min.js') }}"></script>
-    <script src="{{ asset('NiceAdmin/assets/vendor/simple-datatables/simple-datatables.js') }}"></script>
-
-    <script src="{{ asset('NiceAdmin/assets/vendor/tinymce/tinymce.min.js') }}"></script>
-
-    <!-- Main JS -->
-    <script src="{{ asset('NiceAdmin/assets/js/main.js') }}"></script>
+    <!-- Vendor JS - Only load what's actually used, with defer for better performance -->
+    <script src="{{ asset('NiceAdmin/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}" defer></script>
 
     @livewireScripts
 </body>

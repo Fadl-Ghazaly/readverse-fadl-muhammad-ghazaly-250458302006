@@ -2,12 +2,12 @@
 
 namespace App\Livewire\Admin;
 
-use App\Models\Genre;
 use App\Models\Novel;
 use Livewire\Component;
 use Illuminate\Support\Str;
 use Livewire\WithPagination;
 use Livewire\WithFileUploads;
+use App\Models\Genre;
 
 class Novels extends Component
 {

@@ -10,6 +10,7 @@ use App\Models\Report;
 use App\Models\Comment;
 use App\Models\Episode;
 use App\Models\Notification;
+use Illuminate\Support\Facades\Cache;
 
 class Dashboard extends Component
 {
@@ -29,11 +30,22 @@ class Dashboard extends Component
 
     public function mount()
     {
-        // Statistik jumlah data
-        $this->totalNovels = Novel::count();
-        $this->totalEpisodes = Episode::count();
-        $this->totalGenres = Genre::count();
-        $this->totalUsers = User::count();
+        // Statistik jumlah data dengan caching
+        $this->totalNovels = Cache::remember('dashboard_total_novels', 300, function () {
+            return Novel::count();
+        });
+        
+        $this->totalEpisodes = Cache::remember('dashboard_total_episodes', 300, function () {
+            return Episode::count();
+        });
+        
+        $this->totalGenres = Cache::remember('dashboard_total_genres', 300, function () {
+            return Genre::count();
+        });
+        
+        $this->totalUsers = Cache::remember('dashboard_total_users', 300, function () {
+            return User::count();
+        });
 
         // Aktivitas terbaru
         $this->loadRecentActivities();

@@ -64,7 +64,7 @@ class Bookmarks extends Component
             'bookmarks' => Bookmark::with('novel')
                 ->where('user_id', Auth::id())
                 ->latest()
-                ->paginate(9),
+                ->paginate(12),
         ])->layout('layouts.user');
     }
 }

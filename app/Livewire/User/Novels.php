@@ -18,7 +18,7 @@ class Novels extends Component
         return view('livewire.user.novels', [
             'novels' => Novel::where('status', 'active')
                 ->orderBy('title', 'asc') 
-                ->paginate(9)
+                ->paginate(12)
         ])->layout('layouts.user');
     }
 }
