@@ -1,4 +1,4 @@
-(./Screenshoot/Logo1.png)Readverse – Aplikasi Web Baca Novel & Webtoon
+![Readverse](./Screenshoot/Logo1.png) – Aplikasi Web Baca Novel & Webtoon
 
 
 
