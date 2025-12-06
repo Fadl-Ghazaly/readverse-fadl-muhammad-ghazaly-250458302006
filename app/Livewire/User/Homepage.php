@@ -17,7 +17,7 @@ class Homepage extends Component
         return view('livewire.user.homepage', [
             'novels' => Novel::where('status', 'active')
                 ->latest()
-                ->paginate(9),
+                ->paginate(12),
         ])->layout('layouts.user');
     }
 }

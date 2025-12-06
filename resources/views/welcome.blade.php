@@ -9,16 +9,24 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Alpine.js -->
+    <script src="//unpkg.com/alpinejs" defer></script>
 
     <!-- Scripts & Styles -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <style>
-        body {
-            font-family: 'Outfit', sans-serif;
-        }
+        body { font-family: 'Outfit', sans-serif; }
+        
+        /* Modern Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* Blob Animation */
         .blob {
             position: absolute;
             filter: blur(40px);
@@ -223,44 +231,61 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-slate-900 text-slate-300 py-12 border-t border-slate-800">
+    <footer class="bg-slate-950 text-slate-400 py-16 border-t border-slate-900">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-                <div class="col-span-1 md:col-span-1">
-                    <div class="flex items-center gap-2 mb-4">
-                        <img src="{{ asset('NiceAdmin/assets/img/Logo1.png') }}" alt="Readverse" class="h-8 w-auto grayscale opacity-80">
-                        <span class="font-bold text-xl text-white">Readverse</span>
+            <!-- Grid Layout: Mobile (2 cols), Tablet (2 cols - balanced), Desktop (4 cols) -->
+            <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-12">
+                
+                <!-- Brand Section: Full width on mobile/tablet? No, keep logic simple. -->
+                <!-- Mobile: col-span-2 (Full width) -->
+                <!-- Tablet: col-span-1 (Half width) -> With 2 cols grid, this fits nicely. -->
+                <!-- Desktop: col-span-1 -->
+                <div class="col-span-2 md:col-span-1 lg:col-span-1">
+                    <div class="flex items-center gap-3 mb-6">
+                        <img src="{{ asset('NiceAdmin/assets/img/Logo1.png') }}" alt="Readverse" class="h-9 w-auto grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+                        <span class="font-bold text-xl text-slate-200">Readverse</span>
                     </div>
-                    <p class="text-sm text-slate-400">
-                        Platform novel digital masa depan untuk semua orang.
+                    <p class="text-sm leading-relaxed text-slate-500 mb-6 max-w-sm">
+                        Platform novel digital masa depan yang menghubungkan imajinasi penulis dengan hati pembaca.
                     </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="text-slate-500 hover:text-indigo-400 transition-colors"><span class="sr-only">Twitter</span><svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path></svg></a>
+                        <a href="#" class="text-slate-500 hover:text-indigo-400 transition-colors"><span class="sr-only">Instagram</span><svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772 4.902 4.902 0 011.772-1.153c.636-.247 1.363-.416 2.427-.465C9.673 2.013 10.03 2 12.315 2zm-2.008 2H12.316c2.128 0 2.382.016 3.238.056 1.698.082 2.29.569 2.4.618.349.155.518.339.69.511.171.172.355.34.51.69.05.109.536.701.618 2.399.04.856.056 1.11.056 3.239v.08c0 2.129-.016 2.382-.056 3.238-.083 1.698-.569 2.29-.618 2.4-.155.349-.339.518-.511.69-.172-.171.34-.355.69-.51.109.05-.701-.536 2.399-.618.856-.04 1.11-.056 3.239-.056zM12.315 7.218a4.782 4.782 0 110 9.565 4.782 4.782 0 010-9.565zm0 1.8a2.982 2.982 0 100 5.964 2.982 2.982 0 000-5.964zM16.924 5.976a1.2 1.2 0 11-2.4 0 1.2 1.2 0 012.4 0z" clip-rule="evenodd" /></svg></a>
+                    </div>
                 </div>
+
+                <!-- Links Sections -->
                 <div>
-                    <h4 class="text-white font-semibold mb-4">Platform</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="#" class="hover:text-white transition-colors">Trending</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Terbaru</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Kategori</a></li>
+                    <h4 class="text-slate-200 font-bold mb-6">Platform</h4>
+                    <ul class="space-y-4 text-sm font-medium">
+                        <li><a href="#" class="hover:text-indigo-400 transition-colors">Trending</a></li>
+                        <li><a href="#" class="hover:text-indigo-400 transition-colors">Terbaru</a></li>
+                        <li><a href="#" class="hover:text-indigo-400 transition-colors">Kategori</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="text-white font-semibold mb-4">Komunitas</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="#" class="hover:text-white transition-colors">Pedoman Penulis</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Forum Diskusi</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Bantuan</a></li>
+                    <h4 class="text-slate-200 font-bold mb-6">Komunitas</h4>
+                    <ul class="space-y-4 text-sm font-medium">
+                        <li><a href="#" class="hover:text-indigo-400 transition-colors">Pedoman Penulis</a></li>
+                        <li><a href="#" class="hover:text-indigo-400 transition-colors">Forum Diskusi</a></li>
+                        <li><a href="#" class="hover:text-indigo-400 transition-colors">Bantuan</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="text-white font-semibold mb-4">Legal</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Terms of Service</a></li>
+                    <h4 class="text-slate-200 font-bold mb-6">Legal</h4>
+                    <ul class="space-y-4 text-sm font-medium">
+                        <li><a href="#" class="hover:text-indigo-400 transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-indigo-400 transition-colors">Terms of Service</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="border-t border-slate-800 pt-8 text-center text-sm text-slate-500">
-                &copy; {{ date('Y') }} Readverse. All rights reserved.
+            <div class="border-t border-slate-900 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-600">
+                <div>
+                    &copy; {{ date('Y') }} Readverse. All rights reserved.
+                    <a href="#" class="hover:text-white transition-colors">Privacy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms</a>
+                    <a href="#" class="hover:text-white transition-colors">Cookies</a>
+                </div>
             </div>
         </div>
     </footer>
