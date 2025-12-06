@@ -1,8 +1,8 @@
-name: AssetFlow
+name: ReadverseFlow
 
 on:
   push:
-    branches: [ test1 ] # sesuaikan branch
+    branches: [ main ] # sesuaikan branch
 
 jobs:
   web-deploy:
@@ -16,8 +16,8 @@ jobs:
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: 151.243.222.70 # ganti dengan IP hosting
-          username: test@arcueia.my.id # ganti dengan username FTP
-          password: Anything # ganti dengan password FTP
+          username: fadl@readverse.my.id # ganti dengan username FTP
+          password: Fadl2911. # ganti dengan password FTP
           exclude: |
             **/.git/**
             **/node_modules/**
