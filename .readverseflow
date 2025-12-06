@@ -1,0 +1,23 @@
+name: ReadverseFlow
+
+on:
+  push:
+    branches: [ main ] # sesuaikan branch
+
+jobs:
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v4
+
+      - name: 📂 Sync files
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: 151.243.222.70 # ganti dengan IP hosting
+          username: fadl@readverse.my.id # ganti dengan username FTP
+          password: fadl2911. # ganti dengan password FTP
+          exclude: |
+            **/.git/**
+            **/node_modules/**
